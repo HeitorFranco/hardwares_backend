@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { CreateProductFactory } from "../modules/createProduct/CreateProductFactory";
 import { createUserFactory } from "../modules/createUser/CreateUserFactory";
+import { GetProductsByIdFactory } from "../modules/getProductById/GetProductByIdFactory";
 import { GetProductsFactory } from "../modules/getProducts/GetProductsFactory";
 
 const routes = Router();
@@ -14,6 +15,10 @@ routes.post("/users", (request, response) =>
 
 routes.get("/products", (request, response) =>
   GetProductsFactory().handle(request, response)
+);
+
+routes.get("/products/:id", (request, response) =>
+  GetProductsByIdFactory().handle(request, response)
 );
 
 routes.post("/products", (request, response) =>
