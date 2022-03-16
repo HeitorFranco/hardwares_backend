@@ -7,7 +7,6 @@ class CreateProductController {
 
   async handle(request: Request, response: Response) {
     const {
-      id,
       title,
       price,
       location,
@@ -19,7 +18,6 @@ class CreateProductController {
     } = request.body as Product;
 
     const product = await this.createProduct.execute({
-      id,
       title,
       price,
       location,

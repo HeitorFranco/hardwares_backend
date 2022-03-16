@@ -1,19 +1,18 @@
-/**
- * @jest-environment ./prisma/prisma-environment-jest
- */
-
 import request from "supertest";
 import { app } from "../../app";
-import { generateProductData } from "../../utils/tests/generateProductData";
-import { generateUserData } from "../../utils/tests/generateUserData";
+import { Product } from "../../entities/Product";
+import { User } from "../../entities/User";
 
 describe("Create Product Controller", () => {
   it("should be able create a new product", async () => {
-    const sellerData = generateUserData();
+    const sellerData = User.mock.omit("id").one();
     const {
       body: { user: seller },
     } = await request(app).post("/users").send(sellerData);
-    const productData = generateProductData(seller.id!);
+    const productData = {
+      ...Product.mock.omit("id").one(),
+      seller_id: seller.id,
+    };
 
     const response = await request(app).post("/products").send(productData);
 
@@ -22,8 +21,11 @@ describe("Create Product Controller", () => {
   });
 
   it("should not be able create an existing product", async () => {
-    const sellerData = generateUserData();
-    const productData = generateProductData(sellerData.id!);
+    const sellerData = User.mock.omit("id").one();
+    const productData = {
+      ...Product.mock.omit("id").one(),
+      seller_id: sellerData.id,
+    };
     await request(app).post("/products").send(productData);
 
     const response = await request(app).post("/products").send(productData);

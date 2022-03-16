@@ -1,19 +1,23 @@
-class User {
-  id?: string;
+import { User as IUser } from "@prisma/client";
+import { Mock, MockFactory } from "mockingbird";
+
+export class User implements IUser {
+  static mock = MockFactory(User);
+
+  @Mock((faker) => faker.datatype.uuid())
+  id: string;
+  @Mock((faker) => faker.name.firstName())
   name: string;
+  @Mock((faker) => faker.internet.email())
   email: string;
+  @Mock(() => "senhasegura")
   password: string;
+  @Mock((faker) => faker.phone.phoneNumber("###-###-###.##"))
   cpf: string;
+  @Mock((faker) => faker.address.city())
   address: string;
 
-  private constructor(user: User) {
+  constructor(user: User) {
     return Object.assign(this, user);
   }
-
-  static create(user: User) {
-    const userCreated = new User(user);
-    return userCreated;
-  }
 }
-
-export { User };

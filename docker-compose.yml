@@ -5,8 +5,22 @@ services:
     environment:
       POSTGRES_PASSWORD: 123456
       POSTGRES_USER: postgres
-      POSTGRES_DB: hardwares_db_test
+      POSTGRES_DB: hardwares_db
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - pg-db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+  db-test:
+    image: "postgres:latest"
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: postgres
+      POSTGRES_DB: hardwares_db_test
+    volumes:
+      - pg-db-test:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+volumes:
+  pg-db:
+  pg-db-test:

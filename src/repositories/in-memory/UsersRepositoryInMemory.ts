@@ -1,6 +1,6 @@
+import { v4 as uuid } from "uuid";
 import { User } from "../../entities/User";
 import { IUsersRepository } from "../interfaces/IUsersRepositories";
-import { v4 as uuid } from "uuid";
 
 class UsersRepositoryInMemory implements IUsersRepository {
   private users: User[] = [];

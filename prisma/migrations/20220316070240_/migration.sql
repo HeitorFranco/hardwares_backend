@@ -14,7 +14,7 @@ CREATE TABLE "users" (
 CREATE TABLE "products" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "price" INTEGER NOT NULL,
+    "price" TEXT NOT NULL,
     "location" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "brand" TEXT NOT NULL,

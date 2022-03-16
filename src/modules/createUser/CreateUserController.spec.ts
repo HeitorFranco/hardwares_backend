@@ -1,14 +1,10 @@
-/**
- * @jest-environment ./prisma/prisma-environment-jest
- */
-
 import request from "supertest";
 import { app } from "../../app";
-import { generateUserData } from "../../utils/tests/generateUserData";
+import { User } from "../../entities/User";
 
 describe("Create User Controller", () => {
   it("Should be able to create a new user", async () => {
-    const userData = generateUserData();
+    const userData = User.mock.omit("id").one();
 
     const response = await request(app).post("/users").send(userData);
 
@@ -19,7 +15,7 @@ describe("Create User Controller", () => {
   });
 
   it("Should not be able to create an existing user", async () => {
-    const userData = generateUserData();
+    const userData = User.mock.omit("id").one();
     await request(app).post("/users").send(userData);
 
     const response = await request(app).post("/users").send(userData);

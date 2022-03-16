@@ -1,22 +1,36 @@
-class Product {
-  id?: string;
+import { Product as IProduct } from "@prisma/client";
+import { Mock, MockFactory } from "mockingbird";
+
+export class Product implements IProduct {
+  static mock = MockFactory(Product);
+
+  @Mock((faker) => faker.datatype.uuid())
+  id: string;
+
+  @Mock((faker) => faker.commerce.productName())
   title: string;
-  price: number;
+
+  @Mock((faker) => faker.commerce.price())
+  price: string;
+
+  @Mock((faker) => faker.address.city())
   location: string;
+
+  @Mock((faker) => faker.commerce.productDescription())
   description: string;
+
+  @Mock((faker) => faker.commerce.productMaterial())
   brand: string;
+
+  @Mock((faker) => faker.commerce.department())
   type: string;
+
+  @Mock({ type: String, count: 3 })
   images: Array<string>;
+
   seller_id: string;
 
-  private constructor(product: Product) {
+  constructor(product: Product) {
     return Object.assign(this, product);
   }
-
-  static create(product: Product) {
-    const user = new Product(product);
-    return user;
-  }
 }
-
-export { Product };

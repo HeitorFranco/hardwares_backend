@@ -1,9 +1,12 @@
-import "dotenv/config";
+import { Prisma } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { User } from "../../entities/User";
 import { IUsersRepository } from "../../repositories/interfaces/IUsersRepositories";
 
-interface IUserRequest extends User {}
+type IUserRequest = Prisma.XOR<
+  Prisma.UserCreateInput,
+  Prisma.UserUncheckedCreateInput
+>;
 
 interface IUserResponse {
   user: User;
@@ -26,8 +29,13 @@ class CreateUserService {
       throw new Error("User already exists!");
     }
 
-    const userCreate = User.create({ name, email, password, cpf, address });
-    const user = await this.usersRepository.create(userCreate);
+    const user = await this.usersRepository.create({
+      name,
+      email,
+      password,
+      cpf,
+      address,
+    });
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || "", {
       expiresIn: "30d",

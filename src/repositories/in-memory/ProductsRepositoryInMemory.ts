@@ -1,6 +1,12 @@
+import { Prisma } from "@prisma/client";
 import { v4 as uuid } from "uuid";
 import { Product } from "../../entities/Product";
 import { IProductsRepository } from "../interfaces/IProductsRepositories";
+
+type IProduct = Prisma.XOR<
+  Prisma.ProductCreateInput,
+  Prisma.ProductUncheckedCreateInput
+>;
 
 class ProductsRepositoryInMemory implements IProductsRepository {
   private products: Product[] = [];
