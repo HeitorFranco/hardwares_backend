@@ -30,7 +30,7 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "test": "jest --watch-all",
+    "test": "jest",
     "build": "tsc -p tsconfig.build.json",
     "start": "NODE_ENV=production node ./dist/server.js",
     "dev:server": "ts-node-dev --exit-child --respawn --transpile-only --watch src src/server.ts"

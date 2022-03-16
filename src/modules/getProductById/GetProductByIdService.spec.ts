@@ -39,11 +39,12 @@ describe("Get Product By Id Service", () => {
 
     const product = await getProductByIdService.execute(productId!);
 
-    expect(product).not.toBe(undefined);
+    expect(product).toHaveProperty("id");
+    expect(product).toHaveProperty("seller_id");
   });
   it("should return undefined when product.id not exists", async () => {
     const product = await getProductByIdService.execute("not-exists-id");
 
-    expect(product).toBe(undefined);
+    expect(product).toBeUndefined();
   });
 });
