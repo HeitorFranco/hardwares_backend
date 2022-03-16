@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import { Product } from "../../entities/Product";
 import { User } from "../../entities/User";
 import { ProductsRepositoryInMemory } from "../../repositories/in-memory/ProductsRepositoryInMemory";
@@ -50,7 +51,10 @@ describe("Create Product Service", () => {
     expect(product).toHaveProperty("id");
   });
   it("should not be able to create product with a non-existing seller_id", async () => {
-    const productData = Product.mock.omit("id").one();
+    const productData = {
+      ...Product.mock.omit("id").one(),
+      seller_id: uuid(),
+    };
 
     await expect(createProductService.execute(productData)).rejects.toEqual(
       new Error("The seller does not exists!")

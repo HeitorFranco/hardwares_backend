@@ -12,7 +12,7 @@ export class User implements IUser {
   email: string;
   @Mock(() => "senhasegura")
   password: string;
-  @Mock((faker) => faker.phone.phoneNumber("###-###-###.##"))
+  @Mock((faker) => faker.phone.phoneNumber("###.###.###-##"))
   cpf: string;
   @Mock((faker) => faker.address.city())
   address: string;

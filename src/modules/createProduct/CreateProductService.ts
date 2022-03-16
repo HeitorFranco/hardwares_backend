@@ -1,4 +1,5 @@
 import { Prisma } from "@prisma/client";
+import { productSchema } from "../../entities/Product/schema";
 import { IProductsRepository } from "../../repositories/interfaces/IProductsRepositories";
 import { IUsersRepository } from "../../repositories/interfaces/IUsersRepositories";
 
@@ -15,6 +16,8 @@ class CreateProductService {
     private usersRepository: IUsersRepository
   ) {}
   async execute(productDetails: IProductRequest) {
+    await productSchema.validate(productDetails);
+
     const sellerAlreadyExists = await this.usersRepository.findById(
       productDetails.seller_id
     );

@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { User } from "../../entities/User";
+import { userSchema } from "../../entities/User/schema";
 import { IUsersRepository } from "../../repositories/interfaces/IUsersRepositories";
 
 type IUserRequest = Prisma.XOR<
@@ -23,6 +24,14 @@ class CreateUserService {
     cpf,
     address,
   }: IUserRequest): Promise<IUserResponse> {
+    await userSchema.validate({
+      name,
+      email,
+      password,
+      cpf,
+      address,
+    });
+
     const userAlreadyExists = await this.usersRepository.exists(email);
 
     if (userAlreadyExists) {
