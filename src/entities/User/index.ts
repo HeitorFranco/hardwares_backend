@@ -10,7 +10,7 @@ export class User implements IUser {
   name: string;
   @Mock((faker) => faker.internet.email())
   email: string;
-  @Mock(() => "senhasegura")
+  @Mock((faker) => faker.internet.password())
   password: string;
   @Mock((faker) => faker.phone.phoneNumber("###.###.###-##"))
   cpf: string;
