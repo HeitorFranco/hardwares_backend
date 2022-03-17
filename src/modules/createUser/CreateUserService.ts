@@ -46,7 +46,7 @@ class CreateUserService {
       address,
     });
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || "", {
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
       expiresIn: "30d",
     });
 
