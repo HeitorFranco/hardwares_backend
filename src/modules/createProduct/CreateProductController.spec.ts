@@ -21,11 +21,12 @@ describe("Create Product Controller", () => {
   });
 
   it("should not be able create an existing product", async () => {
-    const sellerData = User.mock.omit("id").one();
+    const sellerId = User.mock.one().id;
     const productData = {
       ...Product.mock.omit("id").one(),
-      seller_id: sellerData.id,
+      seller_id: sellerId,
     };
+
     await request(app).post("/products").send(productData);
 
     const response = await request(app).post("/products").send(productData);

@@ -1,4 +1,5 @@
 import { User } from "../../entities/User";
+import { AppError } from "../../errors/AppError";
 import { UsersRepositoryInMemory } from "../../repositories/in-memory/UsersRepositoryInMemory";
 import { IUsersRepository } from "../../repositories/interfaces/IUsersRepositories";
 import { CreateUserService } from "./CreateUserService";
@@ -22,7 +23,7 @@ describe("Create User Service", () => {
     const userData = User.mock.omit("id").one();
     await createUserService.execute(userData);
     await expect(createUserService.execute(userData)).rejects.toEqual(
-      new Error("User already exists!")
+      new AppError("User already exists!")
     );
   });
 });

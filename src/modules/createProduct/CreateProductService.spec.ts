@@ -1,6 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { Product } from "../../entities/Product";
 import { User } from "../../entities/User";
+import { AppError } from "../../errors/AppError";
 import { ProductsRepositoryInMemory } from "../../repositories/in-memory/ProductsRepositoryInMemory";
 import { UsersRepositoryInMemory } from "../../repositories/in-memory/UsersRepositoryInMemory";
 import { IProductsRepository } from "../../repositories/interfaces/IProductsRepositories";
@@ -57,7 +58,7 @@ describe("Create Product Service", () => {
     };
 
     await expect(createProductService.execute(productData)).rejects.toEqual(
-      new Error("The seller does not exists!")
+      new AppError("The seller does not exists!")
     );
   });
 });

@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { productSchema } from "../../entities/Product/schema";
+import { AppError } from "../../errors/AppError";
 import { IProductsRepository } from "../../repositories/interfaces/IProductsRepositories";
 import { IUsersRepository } from "../../repositories/interfaces/IUsersRepositories";
 
@@ -23,7 +24,7 @@ class CreateProductService {
     );
 
     if (!sellerAlreadyExists) {
-      throw new Error("The seller does not exists!");
+      throw new AppError("The seller does not exists!", 400);
     }
 
     const productAlreadyExists = await this.productsRepository.exists(
@@ -32,7 +33,7 @@ class CreateProductService {
     );
 
     if (productAlreadyExists) {
-      throw new Error("Product already exists!");
+      throw new AppError("Product already exists!", 400);
     }
 
     const product = await this.productsRepository.create(productDetails);

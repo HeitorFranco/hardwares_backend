@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { User } from "../../entities/User";
 import { userSchema } from "../../entities/User/schema";
+import { AppError } from "../../errors/AppError";
 import { IUsersRepository } from "../../repositories/interfaces/IUsersRepositories";
 
 type IUserRequest = Prisma.XOR<
@@ -33,7 +34,7 @@ class CreateUserService {
     const userAlreadyExists = await this.usersRepository.exists(email);
 
     if (userAlreadyExists) {
-      throw new Error("User already exists!");
+      throw new AppError("User already exists!", 400);
     }
 
     const user = await this.usersRepository.create({
