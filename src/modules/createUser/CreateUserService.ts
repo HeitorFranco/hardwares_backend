@@ -22,14 +22,12 @@ class CreateUserService {
     email,
     password,
     cpf,
-    address,
   }: IUserRequest): Promise<IUserResponse> {
     await userSchema.validate({
       name,
       email,
       password,
       cpf,
-      address,
     });
 
     const userAlreadyExists = await this.usersRepository.exists(email);
@@ -43,7 +41,6 @@ class CreateUserService {
       email,
       password,
       cpf,
-      address,
     });
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {

@@ -14,8 +14,6 @@ export class User implements IUser {
   password: string;
   @Mock((faker) => faker.phone.phoneNumber("###.###.###-##"))
   cpf: string;
-  @Mock((faker) => faker.address.city())
-  address: string;
 
   constructor(user: User) {
     return Object.assign(this, user);

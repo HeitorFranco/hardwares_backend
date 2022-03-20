@@ -13,7 +13,6 @@ model User {
   email    String    @unique
   password String
   cpf      String
-  address  String
   products Product[]
 
   @@map("users")
@@ -23,7 +22,6 @@ model Product {
   id          String   @id @default(uuid())
   title       String
   price       String
-  location    String
   description String
   brand       String
   type        String

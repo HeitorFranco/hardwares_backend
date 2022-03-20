@@ -6,7 +6,6 @@ type IProduct = Omit<Product, "id">;
 export const productSchema: SchemaOf<IProduct> = object().shape({
   title: string().required(),
   price: string().required(),
-  location: string().required(),
   description: string().required(),
   brand: string().required(),
   type: string().required(),

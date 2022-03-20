@@ -13,9 +13,6 @@ export class Product implements IProduct {
   @Mock((faker) => faker.commerce.price())
   price: string;
 
-  @Mock((faker) => faker.address.city())
-  location: string;
-
   @Mock((faker) => faker.commerce.productDescription())
   description: string;
 

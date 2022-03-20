@@ -5,7 +5,6 @@ CREATE TABLE "users" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "cpf" TEXT NOT NULL,
-    "address" TEXT NOT NULL,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -15,7 +14,6 @@ CREATE TABLE "products" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "price" TEXT NOT NULL,
-    "location" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "brand" TEXT NOT NULL,
     "type" TEXT NOT NULL,
