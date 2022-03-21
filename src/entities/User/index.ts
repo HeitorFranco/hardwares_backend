@@ -12,6 +12,8 @@ export class User implements IUser {
   email: string;
   @Mock((faker) => faker.internet.password())
   password: string;
+  @Mock((faker) => faker.datatype.string)
+  avatar: string;
   @Mock((faker) => faker.phone.phoneNumber("###.###.###-##"))
   cpf: string;
 

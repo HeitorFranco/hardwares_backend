@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 import { object, SchemaOf, string } from "yup";
 
-type IUser = Omit<User, "id">;
+type IUser = Omit<User, "id" | "avatar">;
 
 export const userSchema: SchemaOf<IUser> = object().shape({
   name: string()
