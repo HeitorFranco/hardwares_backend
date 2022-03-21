@@ -23,5 +23,6 @@ describe("Get User By Id Service", () => {
 
     expect(user).toHaveProperty("id");
     expect(user?.id).toBe(newUser.user.id);
+    expect(user).not.toHaveProperty("password");
   });
 });

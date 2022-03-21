@@ -18,10 +18,13 @@ describe("Create User Service", () => {
     const response = await createUserService.execute(userData);
 
     expect(response.user).toHaveProperty("id");
+    expect(response.user).not.toHaveProperty("password");
   });
   it("should not be able to create user", async () => {
     const userData = User.mock.omit("id").one();
+
     await createUserService.execute(userData);
+
     await expect(createUserService.execute(userData)).rejects.toEqual(
       new AppError("User already exists!")
     );

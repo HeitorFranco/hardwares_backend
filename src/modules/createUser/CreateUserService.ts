@@ -10,8 +10,12 @@ type IUserRequest = Prisma.XOR<
   Prisma.UserUncheckedCreateInput
 >;
 
+type IUserWithoutPassword = Omit<User, "password"> & {
+  password?: string | undefined;
+};
+
 interface IUserResponse {
-  user: User;
+  user: IUserWithoutPassword;
   token: string;
 }
 
@@ -37,7 +41,7 @@ class CreateUserService {
       throw new AppError("User already exists!", 400);
     }
 
-    const user = await this.usersRepository.create({
+    const user: IUserWithoutPassword = await this.usersRepository.create({
       name,
       email,
       password,
@@ -47,6 +51,8 @@ class CreateUserService {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
       expiresIn: "30d",
     });
+
+    delete user.password;
 
     return { user, token };
   }

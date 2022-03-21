@@ -13,13 +13,9 @@ describe("Get User By Id Controller", () => {
       .set("Authorization", `Bearer ${newUser.token}`);
 
     expect(response.body).toHaveProperty("id");
-    expect(response.body).toHaveProperty("id");
+    expect(response.body).not.toHaveProperty("password");
   });
   it("should not be able to get the user without token", async () => {
-    const userData = User.mock.omit("id").one();
-
-    const { body: newUser } = await request(app).post(`/users/`).send(userData);
-
     const response = await request(app).get(`/users`);
 
     expect(response.body.message).toBe("JWT token is missing!");
